@@ -1,0 +1,18 @@
+type Feature {
+  id: ID!
+  subfeature: [Feature] @relation(name: "SUB_FEATURE", direction: OUT)
+  function: Function @relation(name: "FEATURE_USES", direction: OUT)
+  notes: [Note] @relation(name: "FEATURE_EXPLANATION", direction: OUT)
+}
+type Function {
+  id: ID!
+  calls: [Function] @relation(name: "CALLS", direction: OUT)
+  features: [Feature] @relation(name: "FEATURE_USES", direction: IN)
+  notes: [Note] @relation(name: "FUNCTION_EXPLANATION", direction: OUT)
+}
+type Note {
+  id: ID!
+  functionNotes: [Note] @relation(name: "FUNCTION_EXPLANATION", direction: IN)
+  featureNotes: [Note] @relation(name: "FEATURE_EXPLANATION", direction: IN)
+  subNotes: [Note] @relation(name: "SUB_NOTE", direction: OUT)
+}
